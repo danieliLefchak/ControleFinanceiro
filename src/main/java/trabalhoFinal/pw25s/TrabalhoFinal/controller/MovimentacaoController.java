@@ -53,6 +53,7 @@ public class MovimentacaoController extends CrudController<Movimentacao, Movimen
 		return modelmapper;
 	}
 	
+	//mudar para o service
 	public void AtualizaSaldoConformeTipoMovimentacao(Movimentacao movimentacao, long idConta) {
 		float valDesp = 0;
 		
@@ -69,6 +70,7 @@ public class MovimentacaoController extends CrudController<Movimentacao, Movimen
 		contaService.save(conta);
 	}
 	
+	//mudar para o service
 	@GetMapping("mov/{id}")
 	public ResponseEntity calculaSaldo(@PathVariable long id){
 		Movimentacao entity = getService().findOne(id);//acho que aqui seria movimentacaoService.findOne
@@ -81,6 +83,7 @@ public class MovimentacaoController extends CrudController<Movimentacao, Movimen
 		}
 	}
 	
+	//mudar para o service
 	@Override
 	@GetMapping
 	public ResponseEntity<List<MovimentacaoDto>> findAll(){

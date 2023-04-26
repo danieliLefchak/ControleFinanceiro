@@ -95,6 +95,9 @@ public class UserControllerTest {
 		User user = new User();
 		user.setUsername("test-user");
 		user.setPassword("s3nha");
+		user.setEmail("teste_1234@test.com");
+		user.setTelefone("2055550125");
+		user.setCpf("1111");
 		
 		return user;
 	}
