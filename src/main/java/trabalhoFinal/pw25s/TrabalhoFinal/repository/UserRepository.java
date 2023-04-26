@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import trabalhoFinal.pw25s.TrabalhoFinal.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
-	User findByName(User user);
+	User findUserByUsername(String username);
+	User findUserByCpf(String cpf);
 }
