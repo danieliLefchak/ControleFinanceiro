@@ -59,7 +59,7 @@ export function FormMovimentacoes() {
     await CategoriaService.findAll()
       .then((resposeCateg) => {
         setCategorias(resposeCateg.data);
-        console.log("Resp categ", resposeCateg.data);
+        //console.log("Resp categ", resposeCateg.data);
         setApiError("");
       })
       .catch((error) => {
@@ -78,7 +78,7 @@ export function FormMovimentacoes() {
     if (id) {
       MovimentacaoService.findOne(parseInt(id)).then((response) => {
         if (response.data) {
-          console.log(response.data);
+          //console.log(response.data);
           setEntityMov({
             id: response.data.id,
             valor: response.data.valor,
@@ -102,7 +102,7 @@ export function FormMovimentacoes() {
         }
       });
     } else {
-      console.log("Categorias ", categorias);
+      //console.log("Categorias ", categorias);
       setEntityMov((previousEntity) => {
         return {
           ...previousEntity,
@@ -139,7 +139,7 @@ export function FormMovimentacoes() {
           },
         };
 
-        console.log("Movimentacao ", movimentacao);
+        //console.log("Movimentacao ", movimentacao);
         MovimentacaoService.save(movimentacao)
           .then((response) => {
             ContaService.save(movimentacao.idConta)
@@ -206,7 +206,7 @@ export function FormMovimentacoes() {
       },
     };
 
-    console.log("Movimentacao ", movimentacao);
+    //console.log("Movimentacao ", movimentacao);
     MovimentacaoService.save(movimentacao)
       .then((response) => {
         navigate("/");

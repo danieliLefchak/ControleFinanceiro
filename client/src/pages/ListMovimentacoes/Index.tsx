@@ -44,7 +44,7 @@ export function ListMovimentacoes() {
     if (contaId) {
       MovimentacaoService.findAll(parseInt(contaId))
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           setData(response.data);
           setApiError("");
         })

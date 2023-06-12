@@ -52,11 +52,10 @@ export function SignupPage() {
       cpf: form.cpf,
       password: form.password,
     };
-    console.log(user);
+    
     AuthService.signup(user)
       .then((response) => {
-        console.log(response);
-
+        
         setUserSaved(true);
         setApiError(false);
         navigate("/login");
@@ -64,7 +63,7 @@ export function SignupPage() {
       .catch((responseError) => {
         setUserSaved(false);
         setApiError(true);
-        console.log(responseError.response);
+
         if (
           responseError.response.data &&
           responseError.response.data.validationErrors
@@ -75,7 +74,6 @@ export function SignupPage() {
       .finally(() => {
         setPendingApiCall(false);
       });
-    console.log("DEPOIS DO POST DO AXIOS");
   };
 
   return (

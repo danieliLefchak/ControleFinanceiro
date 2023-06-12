@@ -92,14 +92,12 @@ export function FormTransferencia() {
       },
     };
 
-    console.log("DATA ", data);
-
     ContaService.findOne(transferencia.idConta2.id)
       .then((responseCnt) => {
-        console.log("RESPOSTA FIND ONE ", responseCnt);
+        //console.log("RESPOSTA FIND ONE ", responseCnt);
 
         if (data.valor <= responseCnt.data.saldo) {
-          console.log("ESTA NO IF");
+          //console.log("ESTA NO IF");
           TransferenciaService.realizaTransferencia(transferencia)
             .then((response) => {
               navigate("/");
@@ -108,7 +106,7 @@ export function FormTransferencia() {
               setApiError("Falha ao salvar tranferencia.");
             });
         } else {
-          console.log("ESTA NO ELSE");
+          //console.log("ESTA NO ELSE");
           setApiError(
             "Não é possivel realizar a transferencia pois o valor é maior que o saldo  atual."
           );
