@@ -19,7 +19,6 @@ public class TransferenciaServiceImpl extends CrudServiceImpl<Transferencia, Lon
 		this.contaService = contaService;
 	}
 	
-	//colocar validações para não deixar com o saldo negativo
 	@Override
 	public void AtualizaSaldoTranferencia(Transferencia transferencia) {
 		float valDesp = 0;

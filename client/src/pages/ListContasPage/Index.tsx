@@ -30,13 +30,10 @@ import { IConta } from "../../commons/interfaces";
 import { Link, useNavigate } from "react-router-dom";
 import ContaService from "../../service/ContaService";
 
-/*{<BsChevronUp size={20} />} */
-
 export function ListContasPage() {
   const [data, setData] = useState<IConta[]>([]);
   const [apiError, setApiError] = useState("");
   const navigate = useNavigate();
-  var found: String;
 
   useEffect(() => {
     loadData();
@@ -115,7 +112,7 @@ export function ListContasPage() {
                       </Td>
                       <Td>
                         <Menu>
-                          <MenuButton 
+                          <MenuButton
                             as={IconButton}
                             aria-label="Actions"
                             icon={<BsChevronDown size={20} />}
@@ -136,7 +133,11 @@ export function ListContasPage() {
                             </MenuItem>
                             <MenuItem
                               icon={<BsCashCoin />}
-                              onClick={() => onFindMovimentacao(`/movimentacoes/findAll/${conta.id}`)}
+                              onClick={() =>
+                                onFindMovimentacao(
+                                  `/movimentacoes/findAll/${conta.id}`
+                                )
+                              }
                             >
                               Ver Movimentações
                             </MenuItem>
@@ -153,15 +154,17 @@ export function ListContasPage() {
         </CardBody>
 
         <CardFooter className="justify-content-center">
-          <Button onClick={() => onEdit(`/contas/new`)} rightIcon={<BsPlusCircle />} colorScheme="purple">
-            Nova conta 
+          <Button
+            onClick={() => onEdit(`/contas/new`)}
+            rightIcon={<BsPlusCircle />}
+            colorScheme="purple"
+          >
+            Nova conta
           </Button>
         </CardFooter>
       </Card>
 
-      <Link to="/">
-        Voltar para home
-      </Link>
+      <Link to="/">Voltar para home</Link>
     </div>
   );
 }

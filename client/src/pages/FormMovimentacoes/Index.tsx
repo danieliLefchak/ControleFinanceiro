@@ -59,7 +59,7 @@ export function FormMovimentacoes() {
     await CategoriaService.findAll()
       .then((resposeCateg) => {
         setCategorias(resposeCateg.data);
-        console.log("Resp categ", resposeCateg.data)
+        console.log("Resp categ", resposeCateg.data);
         setApiError("");
       })
       .catch((error) => {
@@ -69,7 +69,7 @@ export function FormMovimentacoes() {
     await ContaService.findAll()
       .then((responseConta) => {
         setContas(responseConta.data);
-        setApiError("")
+        setApiError("");
       })
       .catch((error) => {
         setApiError("Falha ao carregar o combo de contas.");
@@ -106,7 +106,7 @@ export function FormMovimentacoes() {
       setEntityMov((previousEntity) => {
         return {
           ...previousEntity,
-          categoria: { 
+          categoria: {
             ...categorias[0],
           },
           idConta: {
@@ -122,10 +122,10 @@ export function FormMovimentacoes() {
   }, [entityMov, reset]);
 
   const onSubmit = (data: IMovimentacao) => {
-    if(id){
-      if(data.situacao === "Recebido"){
+    if (id) {
+      if (data.situacao === "Recebido") {
         const novoSaldo = data.idConta.saldo + data.valor;
-  
+
         const movimentacao: IMovimentacao = {
           ...data,
           id: entityMov.id,
@@ -138,7 +138,7 @@ export function FormMovimentacoes() {
             saldo: novoSaldo,
           },
         };
-  
+
         console.log("Movimentacao ", movimentacao);
         MovimentacaoService.save(movimentacao)
           .then((response) => {
@@ -153,10 +153,9 @@ export function FormMovimentacoes() {
           .catch((error) => {
             setApiError("Falha ao salvar movimentação.");
           });
-  
-      } else if(data.situacao === "Pago" && data.valor<=data.idConta.saldo){
+      } else if (data.situacao === "Pago" && data.valor <= data.idConta.saldo) {
         const novoSaldo = data.idConta.saldo - data.valor;
-  
+
         const movimentacao: IMovimentacao = {
           ...data,
           id: entityMov.id,
@@ -173,7 +172,7 @@ export function FormMovimentacoes() {
             tipoConta: data.idConta.tipoConta,
           },
         };
-  
+
         MovimentacaoService.save(movimentacao)
           .then((response) => {
             ContaService.save(movimentacao.idConta)

@@ -12,7 +12,17 @@ interface IInputProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Input({label,className,hasError,type,placeholder,name,value,error,onChange,}: IInputProps) {
+export function Input({
+  label,
+  className,
+  hasError,
+  type,
+  placeholder,
+  name,
+  value,
+  error,
+  onChange,
+}: IInputProps) {
   let inputClassName = className;
   if (hasError != undefined) {
     inputClassName += hasError ? " is-invalid" : " is-valid";

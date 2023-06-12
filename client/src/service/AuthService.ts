@@ -1,4 +1,4 @@
-import { IUserLogin, ISignup, IUserLoginDados } from "../commons/interfaces";
+import { IUserLogin, ISignup } from "../commons/interfaces";
 import { api } from "../lib/axios"
 
 const signup = (user : ISignup) => {
@@ -19,7 +19,7 @@ const isAuthenticated = () =>{
     return token ? true : false;
 }
 
-const findUserByName = (user: IUserLoginDados) => {
+const findUserByName = (user: ISignup) => {
     return api.get(`/users/findUser/${user.username}`);
 }
 

@@ -11,9 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  IConta,
-} from "../../commons/interfaces";
+import { IConta } from "../../commons/interfaces";
 import { useForm } from "react-hook-form";
 import ContaService from "../../service/ContaService";
 
@@ -39,13 +37,12 @@ export function FormContasPage() {
   useEffect(() => {
     loadData();
   }, []);
-  
+
   const loadData = () => {
     if (id) {
       ContaService.findOne(parseInt(id))
         .then((response) => {
           if (response.data) {
-
             setEntityConta({
               id: response.data.id,
               agencia: response.data.agencia,
@@ -181,7 +178,6 @@ export function FormContasPage() {
                 <option key={3} value={"Casa"}>
                   Casa
                 </option>
-
               </Select>
             </FormControl>
 
