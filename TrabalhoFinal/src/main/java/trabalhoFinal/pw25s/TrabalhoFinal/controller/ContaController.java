@@ -43,7 +43,6 @@ public class ContaController extends CrudController<Conta, ContaDto, Long>{
 		return this.modelMapper;
 	}
 	
-	//olhar o crud se esta assim
 	@Override
 	@GetMapping
 	public ResponseEntity<List<ContaDto>> findAll(){
@@ -55,7 +54,6 @@ public class ContaController extends CrudController<Conta, ContaDto, Long>{
 		return ResponseEntity.ok(entitys);
 	}
 	
-	//mudar para o service
 	@Override
 	@GetMapping("{id}")
 	public ResponseEntity<ContaDto> findOne(@PathVariable Long id){

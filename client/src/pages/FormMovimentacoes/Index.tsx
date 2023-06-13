@@ -102,7 +102,6 @@ export function FormMovimentacoes() {
         }
       });
     } else {
-      //console.log("Categorias ", categorias);
       setEntityMov((previousEntity) => {
         return {
           ...previousEntity,
@@ -123,7 +122,7 @@ export function FormMovimentacoes() {
 
   const onSubmit = (data: IMovimentacao) => {
     if (id) {
-      if (data.situacao === "Recebido") {
+      if (data.situacao === "Recebido" && data.tipoMovimentacao == "Receita") {
         const novoSaldo = data.idConta.saldo + data.valor;
 
         const movimentacao: IMovimentacao = {
@@ -153,7 +152,11 @@ export function FormMovimentacoes() {
           .catch((error) => {
             setApiError("Falha ao salvar movimentação.");
           });
-      } else if (data.situacao === "Pago" && data.valor <= data.idConta.saldo) {
+      } else if (
+        data.situacao === "Pago" &&
+        data.valor <= data.idConta.saldo &&
+        data.tipoMovimentacao == "Despesa"
+      ) {
         const novoSaldo = data.idConta.saldo - data.valor;
 
         const movimentacao: IMovimentacao = {
@@ -186,34 +189,38 @@ export function FormMovimentacoes() {
           .catch((error) => {
             setApiError("Falha ao salvar movimentação.");
           });
+      } else if (data.situacao === "Pago" && data.tipoMovimentacao == "Receita") {
+        setApiError("Falha ao modificar movimentação. Receita não deve ser marcada como pago, apenas como recebida.");
+      } else if (data.situacao === "Recebido" && data.tipoMovimentacao == "Despesa") {
+        setApiError("Falha ao modificar movimentação. Despesa não deve ser marcada como recebido apenas como pago.");
       }
+    } else{
+      const movimentacao: IMovimentacao = {
+        ...data,
+        id: entityMov.id,
+        categoria: {
+          id: data.categoria.id,
+          nome: "",
+        },
+        idConta: {
+          id: data.idConta.id,
+          agencia: data.idConta.agencia,
+          banco: data.idConta.banco,
+          numero: data.idConta.numero,
+          saldo: data.idConta.saldo,
+          tipoConta: data.idConta.tipoConta,
+        },
+      };
+  
+      //console.log("Movimentacao ", movimentacao);
+      MovimentacaoService.save(movimentacao)
+        .then((response) => {
+          navigate("/");
+        })
+        .catch((error) => {
+          setApiError("Falha ao salvar movimentação.");
+        });
     }
-
-    const movimentacao: IMovimentacao = {
-      ...data,
-      id: entityMov.id,
-      categoria: {
-        id: data.categoria.id,
-        nome: "",
-      },
-      idConta: {
-        id: data.idConta.id,
-        agencia: data.idConta.agencia,
-        banco: data.idConta.banco,
-        numero: data.idConta.numero,
-        saldo: data.idConta.saldo,
-        tipoConta: data.idConta.tipoConta,
-      },
-    };
-
-    //console.log("Movimentacao ", movimentacao);
-    MovimentacaoService.save(movimentacao)
-      .then((response) => {
-        navigate("/");
-      })
-      .catch((error) => {
-        setApiError("Falha ao salvar movimentação.");
-      });
   };
 
   return (
@@ -367,7 +374,7 @@ export function FormMovimentacoes() {
               </FormErrorMessage>
             </FormControl>
 
-            <div className="text-center">
+            <div className="text-center mb-3">
               <Button
                 mt={4}
                 colorScheme="purple"
@@ -377,6 +384,7 @@ export function FormMovimentacoes() {
                 Salvar
               </Button>
             </div>
+            {apiError && <div className="alert alert-danger">{apiError}</div>}
           </form>
         </CardBody>
       </Card>
